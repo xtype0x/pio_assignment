@@ -1,0 +1,11 @@
+{
+  "name": "placementsio_assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+
+  },
+  "author": "Vincent Liu",
+  "license": "ISC"
+}
