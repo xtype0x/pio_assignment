@@ -29,9 +29,13 @@ const Routes = (app) => {
   app.get('/logout', wrap(userRoute.user_logout))
 
   app.get('/lineitem',wrap(lineitemRoute.get_lineitems))
+  app.put('/lineitem/:id',wrap(lineitemRoute.update))
   app.get('/lineitem/search',wrap(lineitemRoute.search))
+  app.get('/lineitem/:id/comment',wrap(lineitemRoute.get_comments))
+  app.post('/lineitem/:id/comment',wrap(lineitemRoute.create_comment))
 
   app.get('/campaign',wrap(campaignRoute.get_campaigns))
+  app.put('/campaign/:id',wrap(campaignRoute.update))
   app.get('/campaign/search',wrap(campaignRoute.search))
 
   app.post('/invoice', wrap(invoiceRoute.get_invoice))

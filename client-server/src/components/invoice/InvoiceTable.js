@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,6 +30,12 @@ const InvoiceTable = () => {
   const dispatch = useDispatch();
 
   const invoiceState = useSelector((state) => state.invoice);
+
+  const numberFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 2
+  });
 
   let headCells = []
   if(!invoiceState.options.group_by_campaign){
@@ -81,7 +84,7 @@ const InvoiceTable = () => {
           <TableRow key={i}>
             {!invoiceState.options.group_by_campaign && <TableCell>{row.name}</TableCell>}
             <TableCell>{row.campaign_name}</TableCell>
-            <TableCell>{row.sub_total}</TableCell>
+            <TableCell>{numberFormatter.format(row.sub_total)}</TableCell>
           </TableRow>
         ))}
       </TableBody>

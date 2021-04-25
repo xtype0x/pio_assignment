@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import Pagination from '@material-ui/lab/Pagination';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,6 +49,12 @@ const Invoice = () => {
 
   const minHeightPaper = clsx(classes.paper, classes.minHeight);
 
+  const numberFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 2
+  });
+
   const invoiceState = useSelector((state) => state.invoice);
 
   const pageChange = (event, value) => {
@@ -85,7 +90,7 @@ const Invoice = () => {
                     Result
                   </Typography>
                   <Typography component="h3" variant="h5" gutterBottom>
-                    Grand Total: {invoiceState.grand_total}
+                    Grand Total: {numberFormatter.format(invoiceState.grand_total)}
                   </Typography>
                   <Pagination
                     showFirstButton
