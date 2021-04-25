@@ -30,6 +30,6 @@ Backend: Node.js express + Postgresql (My first try with Node.js + Postgresql )
 - ⬜️ An integration into an external service that makes sense (eg. a currency conversion service, an export to Amazon S3, etc)
 - ✅ The user should be able to filter the data (ie. by campaign name, etc., should affect the grand-total).
 - ⬜️ The user should be able to share and reuse filters between users.
-- ⬜️ The user should be able to add comments on an individual line-item.
+- ✅ The user should be able to add comments on an individual line-item.
 - ⬜️ The user should be able to see a history of all the adjustments/comments/changes/etc. made to the invoice by different users.
 

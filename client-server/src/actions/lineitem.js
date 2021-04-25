@@ -5,6 +5,8 @@ export const LINEITEM_SORT_ROWS = 'LINEITEM_SORT_ROWS'
 export const LINEITEM_REVIEW = 'LINEITEM_REVIEW'
 export const LINEITEM_ARCHIVE = 'LINEITEM_ARCHIVE'
 export const LINEITEM_EDIT_ADJUSTMENTS = 'LINEITEM_EDIT_ADJUSTMENTS'
+export const LINEITEM_GET_COMMENTS = 'LINEITEM_GET_COMMENTS'
+export const LINEITEM_CREATE_COMMENT = 'LINEITEM_CREATE_COMMENT'
 export const LINEITEM_CLEAR_MESSAGE = 'LINEITEM_CLEAR_MESSAGE'
 
 export const get_rows = (options) => async (dispatch) => {
@@ -57,7 +59,6 @@ export const archive = (lid) => async (dispatch) => {
 }
 
 export const update_adjustments = (lid, adjustments) => async (dispatch) => {
-  console.log(lid,adjustments)
   const {data,err} = await agent.put("http://localhost:4000/lineitem/"+lid,{adjustments: adjustments});
 
   dispatch({
@@ -68,6 +69,29 @@ export const update_adjustments = (lid, adjustments) => async (dispatch) => {
       error: err
     },
   });
+}
+
+export const get_comments = (lid) => async (dispatch) => {
+  const {data,err} = await agent.get("http://localhost:4000/lineitem/"+lid+"/comment");
+
+  dispatch({
+    type: LINEITEM_GET_COMMENTS,
+    payload: {
+      comments: data
+    }
+  })
+}
+
+export const create_comment = (lid,content) => async (dispatch) => {
+  const {data,err} = await agent.post("http://localhost:4000/lineitem/"+lid+"/comment",{content: content});
+
+  dispatch({
+    type: LINEITEM_CREATE_COMMENT,
+    payload: {
+      comment: data.comment,
+      error: err
+    }
+  })
 }
 
 export const clear_message = () => async (dispatch) => {

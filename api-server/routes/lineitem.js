@@ -99,7 +99,7 @@ const search = async (req,res) => {
 const get_comments = async (req,res) => {
   const lid = req.params.id;
 
-  const get_sql = "SELECT LC.*, U.name AS user_name FROM LineitemComments LEFT JOIN Users U ON LC.user_id = U.id LC WHERE lineitem_id = $1 ORDER BY created_at"
+  const get_sql = "SELECT LC.*, U.name AS user_name FROM LineitemComments LC LEFT JOIN Users U ON LC.user_id = U.id WHERE LC.lineitem_id = $1 ORDER BY LC.created_at"
   const sql_params = [lid]
 
   const {rows} = await db.query(get_sql,sql_params)

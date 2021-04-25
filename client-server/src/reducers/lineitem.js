@@ -4,7 +4,9 @@ import {
   LINEITEM_CLEAR_MESSAGE,
   LINEITEM_REVIEW,
   LINEITEM_ARCHIVE,
-  LINEITEM_EDIT_ADJUSTMENTS
+  LINEITEM_EDIT_ADJUSTMENTS,
+  LINEITEM_GET_COMMENTS,
+  LINEITEM_CREATE_COMMENT
 } from "../actions/lineitem"
 
 
@@ -14,6 +16,7 @@ const initialState = {
   max_page: 1,
   orderBy: 'id',
   reverseOrder: false,
+  comments: [],
   is_loaded: false
 }
 
@@ -89,6 +92,18 @@ export default function lineitemReducer(state = initialState, action ) {
         ...state,
         rows: rows,
         message: message?message: ""
+      }
+    }
+    case LINEITEM_GET_COMMENTS: {
+      return {
+        ...state,
+        comments: action.payload.comments
+      }
+    }
+    case LINEITEM_CREATE_COMMENT: {
+      return {
+        ...state,
+        comments: state.comments.concat(action.payload.comment)
       }
     }
     case LINEITEM_CLEAR_MESSAGE: {
