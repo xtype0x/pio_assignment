@@ -4,7 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-
+    "start": "concurrently \"npm:start-backend\" \"npm:start-frontend\"",
+    "start-frontend": "npm start --prefix client-server",
+    "start-backend": "npm start --prefix api-server",
+    "dbsetup": "npm run dbsetup --prefix api-server"
+  },
+  "dependencies": {
+    "api-server": "./api-server",
+    "client-server": "./client-server",
+    "concurrently": "^6.0.2"
   },
   "author": "Vincent Liu",
   "license": "ISC"

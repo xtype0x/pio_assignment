@@ -4,11 +4,18 @@
 
 Node.js v15.11.0^  
 Frontend: React(React Hooks) + Redux  
-Backend: Node.js express + Postgresql (My first try with Node.js + Postgresql )
-
+Backend: Node.js express + Postgresql (My first try with Node.js + Postgresql )  
+Port `3000` and `4000` will be used in this project.
 ## Setup
 
+1. Install package by running `npm install`
+2. Put the data file `placements_teaser_data.json` in the root directory.
+3. Rename `.env.example` in the api-server folder to `.env`. Then, edit `.env` file for postgresql database config.
+4. Run `npm run dbsetup` to setup database. You should see message like `Create tables done. Insert campaigns and lineitems done.`
 
+## Start
+
+Run `npm start` then open(if not automatically open) `http://localhost:3000` in the browser
 
 ## FINISHED USE CASE
 **Bucket 1:**
