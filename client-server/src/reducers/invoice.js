@@ -1,5 +1,6 @@
 import {
   INVOICE_GET_ROWS,
+  INVOICE_DOWNLOAD_FILE,
   INVOICE_SORT_ROWS,
   INVOICE_SET_TABLE_PAGE,
   INVOICE_SEARCH_FILTER
@@ -45,6 +46,12 @@ export default function invoiceReducer(state = initialState, action ) {
         orderBy: orderBy,
         reverseOrder: reverseOrder,
         is_submit: true
+      }
+    }
+    case INVOICE_DOWNLOAD_FILE: {
+      return {
+        ...state,
+        options: action.payload.options
       }
     }
     case INVOICE_SORT_ROWS:{

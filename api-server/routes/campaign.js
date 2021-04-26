@@ -1,5 +1,6 @@
 import _ from "lodash"
 import db from "../db"
+import {save_history} from "../lib/history"
 
 const NUM_PER_ROWS = 20
 
@@ -38,14 +39,14 @@ const update = async (req,res) => {
   //check cid
   const sel_sql = "SELECT * FROM Campaigns WHERE id = $1"
   const result = await db.query(sel_sql,[cid])
-  const users = result.rows;
-  if(users.length == 0){
+  const campaigns = result.rows;
+  if(campaigns.length == 0){
     return res.status(403).json({
       message: "Campaign not found"
     })
   }else{
-    const user = users[0]
-    if(user.is_reviewed){
+    const campaign = campaigns[0]
+    if(campaign.is_reviewed){
       return res.status(403).json({
         message: "Reviewed campaign can't be edited"
       })
@@ -56,6 +57,12 @@ const update = async (req,res) => {
   const sql_params = [updateData.is_reviewed, cid]
 
   const {rows} = await db.query(update_sql,sql_params)
+
+  //save history
+  await save_history(req,"review_campaign",{
+    campaign_id: campaigns[0].id,
+    campaign_name: campaigns[0].name
+  })
 
   return res.json({
     message: "success",

@@ -26,7 +26,7 @@ created_at timestamp
 
 ## History
 id int
-type 
+type varchar
 user_id 
 log JSON
 created_at timestamp

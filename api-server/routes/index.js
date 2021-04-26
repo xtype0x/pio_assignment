@@ -2,6 +2,7 @@ import userRoute from "./user"
 import lineitemRoute from "./lineitem"
 import campaignRoute from "./campaign"
 import invoiceRoute from "./invoice"
+import historyRoute from "./history"
 
 function wrap (callback) {// for async/await
   return function (req, res, next) {
@@ -39,6 +40,9 @@ const Routes = (app) => {
   app.get('/campaign/search',wrap(campaignRoute.search))
 
   app.post('/invoice', wrap(invoiceRoute.get_invoice))
+  app.post('/invoice/download',wrap(invoiceRoute.download_invoice_file))
+
+  app.get('/history',wrap(historyRoute.get_history))
 }
 
 export default Routes;

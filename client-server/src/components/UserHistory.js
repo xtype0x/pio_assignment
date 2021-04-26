@@ -13,6 +13,8 @@ import Pagination from '@material-ui/lab/Pagination';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Navbar from "./Navbar"
+import HistoryLogFormatter from "./utils/HistoryLogFormatter"
+import {get_rows} from "../actions/history"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +34,21 @@ const useStyles = makeStyles((theme) => ({
 
 const UserHistory = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(1)
+
+  const historyState = useSelector((state) => state.history);
+
+  useEffect(() => {
+    const options = {
+      page: page
+    }
+    dispatch(get_rows(options))
+  },[page])
+
+  const pageChange = (event, value) => {
+    setPage(value);
+  };
 
   return (
     <div className={classes.root}>
@@ -45,7 +62,34 @@ const UserHistory = () => {
               <Typography component="h2" variant="h4" color="primary" gutterBottom>
                 User History
               </Typography>
-              
+              {historyState.is_loaded && <>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Datetime</TableCell>
+                      <TableCell>User</TableCell>
+                      <TableCell>Log</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {historyState.rows.map((row,i) => (
+                      <TableRow key={i}>
+                        <TableCell>{new Date(row.created_at).toLocaleString()}</TableCell>
+                        <TableCell>{row.user_name}</TableCell>
+                        <TableCell><HistoryLogFormatter type={row.type} log={row.log}/></TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                <Pagination
+                  showFirstButton
+                  showLastButton
+                  color="primary"
+                  count={historyState.max_page}
+                  boundaryCount={2}
+                  page={page}
+                  onChange={pageChange}/>
+              </>}
             </Grid>
           </Grid>
         </Container>

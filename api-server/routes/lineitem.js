@@ -1,5 +1,6 @@
 import _ from "lodash"
 import db from "../db"
+import {save_history} from "../lib/history"
 
 const NUM_PER_ROWS = 20
 
@@ -47,21 +48,21 @@ const update = async (req,res) => {
     })
   }
 
-  //check cid
+  //check lid
   const sel_sql = "SELECT * FROM Lineitems WHERE id = $1"
   const result = await db.query(sel_sql,[lid])
-  const users = result.rows;
-  if(users.length == 0){
+  const lineitems = result.rows;
+  if(lineitems.length == 0){
     return res.status(403).json({
       message: "Lineitem not found"
     })
   }else{
-    const user = users[0]
-    if(user.is_reviewed && updateData.adjustments){
+    const lineitem = lineitems[0]
+    if(lineitem.is_reviewed && updateData.adjustments){
       return res.status(403).json({
         message: "Reviewed lineitem can't be edited"
       })
-    }else if(user.is_archived){
+    }else if(lineitem.is_archived){
       return res.status(403).json({
         message: "Archived lineitem can't be edited"
       })
@@ -77,6 +78,13 @@ const update = async (req,res) => {
   const update_sql = `UPDATE Lineitems SET ${set_sql.join(", ")} WHERE id = $${i} RETURNING *`
 
   const {rows} = await db.query(update_sql,sql_params)
+
+  //save history
+  await save_history(req,"update_lineitem",{
+    lineitem_id: lineitems[0].id,
+    lineitem_name: lineitems[0].name,
+    params: updateData
+  })
 
   return res.json({
     message: "success",
@@ -112,6 +120,16 @@ const create_comment = async (req,res) => {
   const user_id = req.session.user.id
   const content = req.body.content
 
+  //check lid
+  const sel_sql = "SELECT * FROM Lineitems WHERE id = $1"
+  const result = await db.query(sel_sql,[lid])
+  const lineitems = result.rows;
+  if(lineitems.length == 0){
+    return res.status(403).json({
+      message: "Lineitem not found"
+    })
+  }
+
   const insert_sql = "INSERT INTO LineitemComments (lineitem_id,user_id,content) VALUES ($1,$2,$3) returning *"
   const sql_params = [lid,user_id,content] 
 
@@ -119,6 +137,13 @@ const create_comment = async (req,res) => {
 
   var newComment = rows[0]
   newComment.user_name = req.session.user.name
+
+  //save history
+  await save_history(req,"create_comment",{
+    lineitem_id: lineitems[0].id,
+    lineitem_name: lineitems[0].name,
+    comment: newComment
+  })
 
   return res.json({
     message: "success",

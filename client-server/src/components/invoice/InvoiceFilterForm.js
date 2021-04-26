@@ -13,7 +13,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MultiSelector from "./MultiSelector"
-import {get_rows} from "../../actions/invoice"
+import { get_rows,download_file } from "../../actions/invoice"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +69,14 @@ const InvoiceFilterForm = () => {
     dispatch(get_rows(options))
   }
 
+  const download = (file_type) => {
+    const options = {
+      group_by_campaign: groupByCampaign,
+      filter_by_lineitem: lineitemFilter.length>0?lineitemFilter.map(item => item.id):undefined,
+      filter_by_campaign: campaignFilter.length>0?campaignFilter.map(item => item.id):undefined
+    }
+    dispatch(download_file(file_type,options))
+  }
 
   return (
     <form noValidate autoComplete="off" onSubmit={submit}>
@@ -109,6 +117,7 @@ const InvoiceFilterForm = () => {
         color="default"
         className={classes.submit}
         startIcon={<GetAppIcon />}
+        onClick={(e)=>download("csv")}
       >
         Download Invoice (CSV)
       </Button>
@@ -118,6 +127,7 @@ const InvoiceFilterForm = () => {
         color="default"
         className={classes.submit}
         startIcon={<GetAppIcon />}
+        onClick={(e)=>download("xlsx")}
       >
         Download Invoice (Xlsx)
       </Button>

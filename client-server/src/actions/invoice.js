@@ -1,6 +1,7 @@
-import agent from "./agent";
+import agent,{downloadAgent} from "./agent";
 
 export const INVOICE_GET_ROWS = 'INVOICE_GET_ROWS'
+export const INVOICE_DOWNLOAD_FILE = 'INVOICE_DOWNLOAD_FILE'
 export const INVOICE_SORT_ROWS = 'INVOICE_SORT_ROWS'
 export const INVOICE_SET_TABLE_PAGE = 'INVOICE_SET_TABLE_PAGE'
 export const INVOICE_SEARCH_FILTER = 'INVOICE_SEARCH_FILTER'
@@ -19,6 +20,24 @@ export const get_rows = (options) => async (dispatch) => {
     },
   });
 };
+
+export const download_file = (file_type,options) => async (dispatch) => {
+  const res = await downloadAgent.post("http://localhost:4000/invoice/download",{options,file_type});
+  const url = window.URL.createObjectURL(new Blob([res.data]));
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', 'invoice.'+file_type);
+  document.body.appendChild(link);
+  link.click();
+
+  dispatch({
+    type: INVOICE_DOWNLOAD_FILE,
+    payload: {
+      options: options,
+      file_type: file_type
+    },
+  });
+}
 
 export const sort_rows = (column) => async (dispatch) => {
   dispatch({

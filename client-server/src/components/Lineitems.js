@@ -196,7 +196,7 @@ const Lineitems = () => {
                               }}>
                               Edit
                             </Button>
-                            <Button variant="contained" style={{marginBottom: 5}} color="primary" onClick={() => dispatch(review(row.id))}>Reviewed</Button>
+                            <Button variant="contained" style={{marginBottom: 5}} color="primary" onClick={() => dispatch(review(row.id))}>Review</Button>
                           </>}
                           {!(row.is_archived) && <Button variant="contained" color="primary" onClick={() => dispatch(archive(row.id))}>Archive</Button>}
                         </TableCell>

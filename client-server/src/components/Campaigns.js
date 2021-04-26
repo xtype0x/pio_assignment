@@ -132,7 +132,7 @@ const Campaigns = () => {
                         <TableCell style={{color: (row.is_reviewed?"green":"orange")}}>{row.is_reviewed?"Reviewed":"Not reviewed"}</TableCell>
                         <TableCell>{row.name}</TableCell>
                         <TableCell>{row.lineitem_count}</TableCell>
-                        <TableCell>{!row.is_reviewed && <Button variant="contained" color="primary" onClick={() => dispatch(review(row.id))}>Reviewed</Button>}</TableCell>
+                        <TableCell>{!row.is_reviewed && <Button variant="contained" color="primary" onClick={() => dispatch(review(row.id))}>Review</Button>}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
