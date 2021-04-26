@@ -11,7 +11,7 @@ const AuthRoute = (props) => {
   useEffect(() => {
     if(!auth.is_loaded)
       dispatch(check_user())
-  },[])
+  },[auth.is_loaded,dispatch])
   if(!auth.is_loaded){
     return <div />
   }

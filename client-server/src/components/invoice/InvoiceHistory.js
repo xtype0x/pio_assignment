@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
@@ -14,7 +13,7 @@ const InvoiceHistory = () => {
 
   useEffect(() => {
     dispatch(get_history())
-  },[invoiceState.options])
+  },[invoiceState.options,dispatch])
 
   return (
     <List>

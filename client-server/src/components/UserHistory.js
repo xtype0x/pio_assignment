@@ -44,7 +44,7 @@ const UserHistory = () => {
       page: page
     }
     dispatch(get_rows(options))
-  },[page])
+  },[page,dispatch])
 
   const pageChange = (event, value) => {
     setPage(value);

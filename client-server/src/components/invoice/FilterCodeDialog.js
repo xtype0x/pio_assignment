@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import alertify from 'alertifyjs';
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterCodeDialog = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
+
   const open = props.open, handleClose = props.handleClose, submit=props.submit
   const [val, setVal] = useState("")
 
@@ -36,10 +34,10 @@ const FilterCodeDialog = (props) => {
     if("group_by_campaign" in code && typeof code.group_by_campaign !== "boolean"){
       return alertify.error("Filter code is not valid")
     }
-    if("filter_by_campaign" in code && Array.isArray(code.filter_by_campaign)){
+    if("filter_by_campaign" in code && !Array.isArray(code.filter_by_campaign)){
       return alertify.error("Filter code is not valid")
     }
-    if("filter_by_lineitem" in code && Array.isArray(code.filter_by_lineitem)){
+    if("filter_by_lineitem" in code && !Array.isArray(code.filter_by_lineitem)){
       return alertify.error("Filter code is not valid")
     }
 

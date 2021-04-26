@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import clsx from 'clsx';
 import Container from '@material-ui/core/Container';
@@ -7,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Pagination from '@material-ui/lab/Pagination';
-import GetAppIcon from '@material-ui/icons/GetApp';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Navbar from "./Navbar"

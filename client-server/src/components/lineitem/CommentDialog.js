@@ -4,13 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import {get_comments,create_comment} from "../../actions/lineitem"
@@ -27,7 +25,7 @@ const CommentDialog = (props) => {
     if(open && editingLineitem){
       dispatch(get_comments(lid))
     }
-  },[lid,open])
+  },[editingLineitem,lid,open,dispatch])
 
   const submit = (e) => {
     e.preventDefault()

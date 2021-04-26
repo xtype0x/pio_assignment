@@ -101,8 +101,15 @@ export default function lineitemReducer(state = initialState, action ) {
       }
     }
     case LINEITEM_CREATE_COMMENT: {
+      let rows = state.rows
+      const lid = action.payload.comment.lineitem_id;
+      const ind = rows.findIndex(row => row.id === lid)
+      if(ind !== -1){
+        rows[ind].comment_count++
+      }
       return {
         ...state,
+        rows: rows,
         comments: state.comments.concat(action.payload.comment)
       }
     }

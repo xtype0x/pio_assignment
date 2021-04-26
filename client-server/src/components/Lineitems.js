@@ -92,7 +92,7 @@ const Lineitems = () => {
       alertify.success(lineitemState.message)
       dispatch(clear_message())
     }
-  },[lineitemState.message])
+  },[lineitemState.message,dispatch])
 
   useEffect(() => {
     const options = {
@@ -102,7 +102,7 @@ const Lineitems = () => {
       reverseOrder: lineitemState.reverseOrder
     }
     dispatch(get_rows(options))
-  },[page,lineitemState.orderBy,lineitemState.reverseOrder,tab])
+  },[page,lineitemState.orderBy,lineitemState.reverseOrder,tab,dispatch])
 
   const pageChange = (event, value) => {
     setPage(value);
@@ -110,6 +110,7 @@ const Lineitems = () => {
 
   const tabChange = (event, newValue) => {
     setTab(newValue);
+    setPage(1)
   };
 
   const sortHandler = (orderBy) => (event) => {
@@ -171,7 +172,7 @@ const Lineitems = () => {
                         <TableCell>{numberFormatter.format(row.actual_amount)}</TableCell>
                         <TableCell>{numberFormatter.format(row.adjustments)}</TableCell>
                         <TableCell>
-                          <Badge badgeContent={row.comment_count} color="primary" invisible={row.comment_count==0}>
+                          <Badge badgeContent={row.comment_count} color="primary" invisible={row.comment_count==="0"}>
                             <Button 
                               variant="contained" 
                               style={{marginBottom: 5}} 

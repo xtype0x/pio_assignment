@@ -42,7 +42,7 @@ const Login = () => {
   
   useEffect(() => {
     dispatch(check_user())
-  },[])
+  },[dispatch])
 
   const submit = (e) => {
     e.preventDefault()

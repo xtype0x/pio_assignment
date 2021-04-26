@@ -66,7 +66,7 @@ const Campaigns = () => {
       alertify.success(campaignState.message)
       dispatch(clear_message())
     }
-  },[campaignState.message])
+  },[campaignState.message,dispatch])
 
   useEffect(() => {
     const options = {
@@ -75,7 +75,7 @@ const Campaigns = () => {
       reverseOrder: campaignState.reverseOrder
     }
     dispatch(get_rows(options))
-  },[page,campaignState.orderBy,campaignState.reverseOrder])
+  },[page,campaignState.orderBy,campaignState.reverseOrder,dispatch])
 
   const pageChange = (event, value) => {
     setPage(value);

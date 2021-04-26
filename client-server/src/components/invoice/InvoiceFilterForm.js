@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import clsx from 'clsx';
-import Container from '@material-ui/core/Container';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { makeStyles } from '@material-ui/core/styles';
@@ -48,10 +44,6 @@ const InvoiceFilterForm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [filterCodeDialogOpen, setFilterCodeDialog] = useState(false);
-
-  const minHeightPaper = clsx(classes.paper, classes.minHeight);
-
-  const invoiceState = useSelector((state) => state.invoice);
 
   const [campaignFilter, setCampaignFilter] = useState([])
   const [lineitemFilter, setLineitemFilter] = useState([])

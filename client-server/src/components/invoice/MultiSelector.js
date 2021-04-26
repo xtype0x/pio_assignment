@@ -25,7 +25,6 @@ const MultiSelector = (props) => {
     options = invoiceState.campaignfilterOptions
 
   React.useEffect(() => {
-    let active = true;
 
     if (inputValue === '') {
       return undefined;
@@ -33,10 +32,7 @@ const MultiSelector = (props) => {
 
     dispatch(search_filter(filter_type,inputValue))
 
-    return () => {
-      active = false;
-    };
-  }, [value,inputValue]);
+  }, [value,inputValue,dispatch,filter_type]);
 
   return (
     <Autocomplete

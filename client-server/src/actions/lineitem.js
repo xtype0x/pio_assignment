@@ -72,7 +72,7 @@ export const update_adjustments = (lid, adjustments) => async (dispatch) => {
 }
 
 export const get_comments = (lid) => async (dispatch) => {
-  const {data,err} = await agent.get("http://localhost:4000/lineitem/"+lid+"/comment");
+  const {data} = await agent.get("http://localhost:4000/lineitem/"+lid+"/comment");
 
   dispatch({
     type: LINEITEM_GET_COMMENTS,
