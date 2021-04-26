@@ -73,4 +73,17 @@ const download_invoice_file = async (req,res) => {
   return res.attachment(filename).end(file,'binary')
 }
 
-export default {get_invoice,download_invoice_file}
+const get_history = async (req,res) => {
+  const uid = req.session.user.id
+  const get_sql = `SELECT *
+    FROM History
+    WHERE user_id = $1 AND type IN ('get_invoice','download_invoice')
+    ORDER BY created_at DESC LIMIT 10`
+  const sql_params = [uid]
+
+  const {rows} = await db.query(get_sql,sql_params)
+
+  return res.json(rows)
+}
+
+export default {get_invoice,download_invoice_file,get_history}

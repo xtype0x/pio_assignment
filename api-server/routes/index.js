@@ -41,6 +41,7 @@ const Routes = (app) => {
 
   app.post('/invoice', wrap(invoiceRoute.get_invoice))
   app.post('/invoice/download',wrap(invoiceRoute.download_invoice_file))
+  app.get('/invoice/history',wrap(invoiceRoute.get_history))
 
   app.get('/history',wrap(historyRoute.get_history))
 }

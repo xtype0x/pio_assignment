@@ -1,6 +1,7 @@
 import {
   INVOICE_GET_ROWS,
   INVOICE_DOWNLOAD_FILE,
+  INVOICE_GET_HISTORY,
   INVOICE_SORT_ROWS,
   INVOICE_SET_TABLE_PAGE,
   INVOICE_SEARCH_FILTER
@@ -8,6 +9,7 @@ import {
 
 const initialState = {
   rows: [],
+  history:[],
   page: 1,
   max_page: 1,
   num_per_rows: 20,
@@ -52,6 +54,12 @@ export default function invoiceReducer(state = initialState, action ) {
       return {
         ...state,
         options: action.payload.options
+      }
+    }
+    case INVOICE_GET_HISTORY: {
+      return {
+        ...state,
+        history: action.payload.history
       }
     }
     case INVOICE_SORT_ROWS:{

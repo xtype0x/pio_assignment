@@ -13,6 +13,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MultiSelector from "./MultiSelector"
+import FilterCodeDialog from "./FilterCodeDialog"
 import { get_rows,download_file } from "../../actions/invoice"
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const InvoiceFilterForm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [filterCodeDialogOpen, setFilterCodeDialog] = useState(false);
 
   const minHeightPaper = clsx(classes.paper, classes.minHeight);
 
@@ -66,6 +68,11 @@ const InvoiceFilterForm = () => {
       filter_by_lineitem: lineitemFilter.length>0?lineitemFilter.map(item => item.id):undefined,
       filter_by_campaign: campaignFilter.length>0?campaignFilter.map(item => item.id):undefined
     }
+    dispatch(get_rows(options))
+  }
+
+  const filter_code_submit = (code) => {
+    const options = JSON.parse(code)
     dispatch(get_rows(options))
   }
 
@@ -114,6 +121,15 @@ const InvoiceFilterForm = () => {
       <Button
         type="button"
         variant="contained"
+        color="secondary"
+        className={classes.submit}
+        onClick={() => setFilterCodeDialog(true)}
+      >
+        Use Filter Code
+      </Button>
+      <Button
+        type="button"
+        variant="contained"
         color="default"
         className={classes.submit}
         startIcon={<GetAppIcon />}
@@ -131,6 +147,11 @@ const InvoiceFilterForm = () => {
       >
         Download Invoice (Xlsx)
       </Button>
+      <FilterCodeDialog 
+        open={filterCodeDialogOpen}
+        handleClose={() => setFilterCodeDialog(false)}
+        submit={filter_code_submit}
+      />
     </form>
   )
 }

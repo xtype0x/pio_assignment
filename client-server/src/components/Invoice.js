@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Navbar from "./Navbar"
 import InvoiceTable from "./invoice/InvoiceTable"
 import InvoiceFilterForm from "./invoice/InvoiceFilterForm"
+import InvoiceHistory from "./invoice/InvoiceHistory"
 import { set_table_page } from "../actions/invoice"
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 1, 2),
   },
   minHeight: {
-    minHeight: 350,
+    height: 350,
   },
 }));
 
@@ -82,6 +83,7 @@ const Invoice = () => {
                 <Typography component="h3" variant="h6" color="primary" gutterBottom>
                   History
                 </Typography>
+                <InvoiceHistory />
               </Paper>
             </Grid>
             {invoiceState.is_submit && <Grid item xs={12}>
